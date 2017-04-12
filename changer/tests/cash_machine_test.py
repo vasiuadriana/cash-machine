@@ -46,6 +46,9 @@ class CashMachineTest(unittest.TestCase):
         self.cash_machine.load(5, 1)
         self.assertIsNone(self.cash_machine.exchange(20))
 
+        self.cash_machine.load(14, 1)
+        self.assertIsNone(self.cash_machine.exchange(20))
+
     def test_exchange_type_of_banknotes_not_accepted_by_the_machine_produces_an_error(self):
         with self.assertRaises(InvalidBanknoteTypeException):
             self.cash_machine.exchange('invalid_banknote_amount')
@@ -82,6 +85,7 @@ class CashMachineTest(unittest.TestCase):
         self.assertDictEqual({1: 10}, self.cash_machine.get_available_coins())
         self.cash_machine.exchange(20)
         self.assertDictEqual({1: 10}, self.cash_machine.get_available_coins())
+
 
 
 if __name__ == '__main__':

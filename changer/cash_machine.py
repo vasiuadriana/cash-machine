@@ -43,11 +43,13 @@ class CashMachine:
         return operation in self.SUPPORTED_OPERATIONS
 
     def _change(self, banknote_amount, available_coins, used_coins):
-        if math.fsum(used_coins) == banknote_amount:
-            yield used_coins
-        elif sum(used_coins) > banknote_amount or not available_coins:
+        if not available_coins:
             pass
         elif used_coins.count(available_coins[0]) > self._available_coins[available_coins[0]]:
+            pass
+        elif math.fsum(used_coins) == banknote_amount:
+            yield used_coins
+        elif sum(used_coins) > banknote_amount:
             pass
         else:
             for c in self._change(banknote_amount, available_coins[:], used_coins + [available_coins[0]]):

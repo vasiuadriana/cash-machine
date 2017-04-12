@@ -1,3 +1,4 @@
+import math
 from collections import OrderedDict
 
 from changer.cash_machine_exceptions import InvalidCoinTypeException, InvalidNumberOfCoinsException, \
@@ -42,7 +43,7 @@ class CashMachine:
         return operation in self.SUPPORTED_OPERATIONS
 
     def _change(self, banknote_amount, available_coins, used_coins):
-        if sum(used_coins) == banknote_amount:
+        if math.fsum(used_coins) == banknote_amount:
             yield used_coins
         elif sum(used_coins) > banknote_amount or not available_coins:
             pass

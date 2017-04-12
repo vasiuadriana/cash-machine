@@ -52,9 +52,12 @@ class CashMachineTest(unittest.TestCase):
 
     def test_successful_exchange_returns_the_first_possible_coin_combination(self):
         self.cash_machine.load(10, 1)
-        self.cash_machine.load(20, 2)
+        self.cash_machine.load(5, 2)
         exchange_result = self.cash_machine.exchange(20)
         self.assertEqual({1: 10, 2: 5}, exchange_result)
+        self.cash_machine.load(15, 0.2)
+        self.cash_machine.load(11, 0.2)
+        self.assertEquals({0.2: 25}, self.cash_machine.exchange(5))
 
     def test_successfully_exchanged_banknotes_are_stored_in_the_machine(self):
         self.assertEqual({}, self.cash_machine.get_exchanged_banknotes())
@@ -79,6 +82,7 @@ class CashMachineTest(unittest.TestCase):
         self.assertDictEqual({1: 10}, self.cash_machine.get_available_coins())
         self.cash_machine.exchange(20)
         self.assertDictEqual({1: 10}, self.cash_machine.get_available_coins())
+
 
 if __name__ == '__main__':
     unittest.main()
